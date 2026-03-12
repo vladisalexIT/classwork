@@ -1,3 +1,4 @@
+
 // Задача 1 синтаксисом
 function splitEvenOddSyntax(arr) {
     let even = [];
@@ -169,3 +170,8 @@ function delayMessage(message, delayMs, callback) {
 }
 
 delayMessage("Привет!", 2000, () => console.log("Callback!"))
+
+
+
+
+

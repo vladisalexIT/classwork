@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    background: #f0f0f0;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #333;
+    margin: 0;
+}
+
+.arrow {
+    display: inline-block;
+    animation: moveArrow 1s infinite alternate;
+    font-size: 2.5rem;
+    margin-left: 10px;
+}
+
+@keyframes moveArrow {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(20px);
+    }
+}
