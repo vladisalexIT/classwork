@@ -29,7 +29,7 @@ console.log(splitEvenOddMethods([1, 2, 3, 4, 5, 6]))
 
 // Задача 2 синтаксисом
 function averageOfArraySyntax(arr) {
-    if (!arr || arr.length === 0) return 0
+    if (!Array.isArray(arr) || arr.length === 0) return 0
     let sum = 0
     for (let i = 0; i < arr.length; i++) {
         sum += arr[i]
@@ -43,7 +43,7 @@ console.log(averageOfArraySyntax([1.5, 2.5, 3.5]))
 
 // Задача 2 методами
 function averageOfArrayMethods(arr) {
-    if (!arr || arr.length === 0) return 0
+    if (!Array.isArray(arr) || arr.length === 0) return 0
     let sum = arr.reduce((acc, current) => current + acc, 0)
     const average = sum / arr.length;
     return Number(average.toFixed(2))
@@ -54,16 +54,16 @@ console.log(averageOfArrayMethods([1.5, 2.5, 3.5]));
 
 // Задача 3 синтаксисом
 function censorWordSyntax(str, word) {
-    const words = str.split(' ')
-    const result = []
-    for (let i = 0; i < words.length; i++) {
-        let cleanWord = words[i].replace(/[.,!?:;]/g, '');
-        let punctuation = words[i].slice(cleanWord.length)
+    let arr = str.split(' ')
+    let result = []
 
+    for (let i = 0; i < arr.length; i++) {
+        let cleanWord = arr[i].replace(/^[^a-zA-Zа-яА-Я0-9]+|[^a-zA-Zа-яА-Я0-9]+$/g, '')
+        let punctuation = arr[i].slice(cleanWord.length)
         if (cleanWord.toLowerCase() === word.toLowerCase()) {
             result.push('[ЦЕНЗУРА]' + punctuation)
         } else {
-            result.push(words[i])
+            result.push(arr[i])
         }
     }
 
@@ -74,14 +74,18 @@ console.log(censorWordSyntax("JavaScript это круто. Я люблю JavaSc
 
 // Задача 3 методами
 function censorWordMethods(str, word) {
-    return str.split(' ').map(item => {
-        const isMatch = item.toLowerCase().startsWith(word.toLowerCase())
-        if (isMatch) {
-            let punctuation = item.slice(word.length)
-            return '[ЦЕНЗУРА]' + punctuation
+    const target = word.toLowerCase();
+    
+    return str.split(' ').map(currentWord => {
+        const cleanWord = currentWord.replace(/[^a-zA-Zа-яА-Я0-9]/g, '').toLowerCase();
+        
+        if (cleanWord === target) {
+            const punctuation = currentWord.match(/[^a-zA-Zа-яА-Я0-9]+$/);
+            return '[ЦЕНЗУРА]' + (punctuation ? punctuation[0] : '');
         }
-        return item
-    }).join(' ')
+        
+        return currentWord;
+    }).join(' ');
 }
 
 console.log(censorWordMethods("JavaScript это круто. Я люблю JavaScript!", "JavaScript"))
@@ -170,8 +174,4 @@ function delayMessage(message, delayMs, callback) {
 }
 
 delayMessage("Привет!", 2000, () => console.log("Callback!"))
-
-
-
-
 
